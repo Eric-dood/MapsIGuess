@@ -29,19 +29,32 @@ int main() {
         cout << "3. Search for Villager" << endl;
         cout << "4. Exit" << endl;
 
-        //Prompt the user to make a choice
-        cout << "Choice --> ";
-        cin >> choice;
-        cin.ignore(1000, 10);
+        while (true)
+        {
+            //Prompt the user to make a choice
+            cout << "Choice --> ";
+            cin >> choice;
+            cin.ignore(1000, 10);
+
+            if (choice >= 1 && choice <= 4) break;
+            else
+                cout << "ERROR - Please insert a value between 1-4: ";
+        }
 
         switch (choice)
         {
-            case 1: //Insert
-
-                
-            case 2: //Remove
-
-            case 3: //Find
+            case 1: //Increase Friendship
+                for (auto &pair : villagerList)
+                    get<0>(pair.second) += 1;
+                break;
+            case 2: //Decrease Friendship
+                for (auto &pair : villagerList)
+                {
+                    if (get<0>(pair.second) > 0)
+                        get<0>(pair.second) -= 1;
+                }
+                break;
+            case 3: //Find Villager
                 // search for an element using .find() to avoid errors
                 string searchKey = "Drago";
                 auto it = villagerList.find(searchKey);
@@ -51,6 +64,7 @@ int main() {
                     cout << "[" << get<0>(it->second) << ", " << get<1>(it->second) << ", " << get<2>(it->second) << "]" << endl;
                 } else
                     cout << endl << searchKey << " not found." << endl;
+                break;
         }
 
         if (choice == 4)
