@@ -3,11 +3,13 @@
 #include <map>
 #include <vector>
 #include <tuple>
+#include <algorithm>
+#include <string>
 using namespace std;
 
 int main() {
     // declarations
-    map< string, tuple<int, string, string> > villagerList;
+    map< string, tuple<int, string, string>> villagerList;
 
     // insert elements into the map
     // note how the right-hand side of the assignment are the vector elements
@@ -22,7 +24,7 @@ int main() {
         cout << pair.first << ": [";
         cout << get<0>(pair.second) << ", ";
         cout << get<1>(pair.second) << ", ";
-        cout << get<2>(pair.second) << ", ";
+        cout << get<2>(pair.second);
         cout << "]" << endl;
     }
 
