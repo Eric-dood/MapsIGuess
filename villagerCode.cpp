@@ -9,7 +9,7 @@ using namespace std;
 
 int main() {
     // declarations
-    map< string, tuple<int, string, string>> villagerList;
+    map<string, tuple<int, string, string>> villagerList;
 
     // insert elements into the map
     // note how the right-hand side of the assignment are the vector elements
@@ -21,40 +21,35 @@ int main() {
     cout << "Villagers and their favorite colors (range-based for loop):" << endl;
     for (auto pair : villagerList)
     {
-        cout << pair.first << ": [";
-        cout << get<0>(pair.second) << ", ";
-        cout << get<1>(pair.second) << ", ";
-        cout << get<2>(pair.second);
-        cout << "]" << endl;
+        cout << pair.first << ": ";
+        cout << "[" << get<0>(pair.second) << ", " << get<1>(pair.second) << ", " << get<2>(pair.second) << "]" << endl;
     }
 
     // access the map using iterators
     cout << "\nVillagers and their favorite colors (iterators):" << endl;
-    for (map<string, tuple<int, string, string>>::iterator it = villagerList.begin(); 
-                                               it != villagerList.end(); ++it)
+    for (map<string, tuple<int, string, string>>::iterator it = villagerList.begin(); it != villagerList.end(); ++it)
     {
         cout << it->first << ": ";
-        cout << endl;
+        cout << "[" << get<0>(it->second) << ", " << get<1>(it->second) << ", " << get<2>(it->second) << "]" << endl;
     }
 
     // delete an element
     villagerList.erase("Raymond");
 
     // search for an element using .find() to avoid errors
-    string searchKey = "Audie";
+    string searchKey = "Drago";
     auto it = villagerList.find(searchKey);
     if (it != villagerList.end()) {  // the iterator points to beyond the end of the map
                                        // if searchKey is not found
         cout << "\nFound " << searchKey << "'s favorite colors: ";
-        for (auto color : it->first)  // range loop to traverse the value/vector
-            cout << color << " ";
-        cout << endl;
+        cout << "[" << get<0>(it->second) << ", " << get<1>(it->second) << ", " << get<2>(it->second) << "]" << endl;
     } else
         cout << endl << searchKey << " not found." << endl;
 
-    // report size, clear, report size again to confirm map operations
+    //Report size, clear, report size again to confirm map operations
     cout << "\nSize before clear: " << villagerList.size() << endl;
     villagerList.clear();
+    //Print the size after clearing
     cout << "Size after clear: " << villagerList.size() << endl;
 
     return 0;
