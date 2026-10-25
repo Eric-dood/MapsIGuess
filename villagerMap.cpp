@@ -7,7 +7,7 @@ using namespace std;
 
 int main() {
     // declarations
-    map<string, tuple<int, string, string>> villagerList;
+    map< string, tuple<int, string, string> > villagerList;
 
     // insert elements into the map
     // note how the right-hand side of the assignment are the vector elements
@@ -19,10 +19,11 @@ int main() {
     cout << "Villagers and their favorite colors (range-based for loop):" << endl;
     for (auto pair : villagerList)
     {
-        cout << pair.first << ": ";
-        for (auto color : pair.first)
-            cout << color << " ";
-        cout << endl;
+        cout << pair.first << ": [";
+        cout << get<0>(pair.second) << ", ";
+        cout << get<1>(pair.second) << ", ";
+        cout << get<2>(pair.second) << ", ";
+        cout << "]" << endl;
     }
 
     // access the map using iterators
@@ -31,7 +32,6 @@ int main() {
                                                it != villagerList.end(); ++it)
     {
         cout << it->first << ": ";
-        cout << get<0>(it) 
         cout << endl;
     }
 
