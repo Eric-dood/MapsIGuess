@@ -11,9 +11,9 @@ int main() {
 
     // insert elements into the map
     // note how the right-hand side of the assignment are the vector elements
-    villagerList["Drago"] = { 5, "Alligator", "Snap to it!" };
-    villagerList["Kyle"] = { 10, "Wolf", "Hubba hubba!" };
-    villagerList.insert({"Raymond", {8, "Cat", "Nice fit"}});
+    villagerList["Drago"] = make_tuple(5, "Alligator", "Snap to it!");
+    villagerList["Kyle"] = make_tuple(10, "Wolf", "Hubba hubba!");
+    villagerList.insert({"Raymond", make_tuple(8, "Cat", "Nice fit")});
 
     // access the map using a range-based for loop
     cout << "Villagers and their favorite colors (range-based for loop):" << endl;
@@ -28,11 +28,10 @@ int main() {
     // access the map using iterators
     cout << "\nVillagers and their favorite colors (iterators):" << endl;
     for (map<string, tuple<int, string, string>>::iterator it = villagerList.begin(); 
-                                               it != villagerList.end(); ++it) {
+                                               it != villagerList.end(); ++it)
+    {
         cout << it->first << ": ";
-        for (auto color : it->first) {
-            cout << color << " ";
-        }
+        cout << get<0>(it) 
         cout << endl;
     }
 
