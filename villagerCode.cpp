@@ -41,7 +41,12 @@ int main() {
                 cout << "ERROR - Please insert a value between 1-4: ";
         }
 
+        //Yay, declare more variables
         string searchKey;
+        int friendship;
+        string name, species, catchphrase;
+
+        //Do a special check for choices 2 and 5; doing in a switch statement causes errors
         if (choice == 2 || choice == 5)
         {
             // search for an element using .find() to avoid errors
@@ -68,6 +73,20 @@ int main() {
 
         switch (choice)
         {
+            case 1: //Add Villager
+                cout << "Enter the name of the villager --> ";
+                getline(cin, name);
+                cout << "Enter the friendship value of the villager --> ";
+                cin >> friendship;
+                cin.ignore(1000, 10);
+                cout << "Enter the species of the villager --> ";
+                getline(cin, species);
+                cout << "What's the villager's catchphrase? --> ";
+                getline(cin, catchphrase);
+                //Insert the new villager to the list
+                cout << name << " added." << endl;
+                villagerList.insert(make_pair(name, make_tuple(friendship, species, catchphrase)));
+                break;
             case 3: //Increase Friendship
                 for (auto &pair : villagerList)
                     get<0>(pair.second) += 1;
