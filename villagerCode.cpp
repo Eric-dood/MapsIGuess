@@ -11,8 +11,6 @@ int main() {
     // declarations
     map<string, tuple<int, string, string>> villagerList;
     int choice = 0;
-    int age;
-    string name, species, catchphrase;
 
     // insert elements into the map
     // note how the right-hand side of the assignment are the vector elements
@@ -24,10 +22,12 @@ int main() {
     while (true)
     {
         //Print the menu list
-        cout << "1. Increase Friendship" << endl;
-        cout << "2. Decrease Friendship" << endl;
-        cout << "3. Search for Villager" << endl;
-        cout << "4. Exit" << endl;
+        cout << "1. Add Villager" << endl;
+        cout << "2. Delete Villager" << endl;
+        cout << "3. Increase Friendship" << endl;
+        cout << "4. Decrease Friendship" << endl;
+        cout << "5. Search for Villager" << endl;
+        cout << "6. Exit" << endl;
 
         while (true)
         {
@@ -36,38 +36,52 @@ int main() {
             cin >> choice;
             cin.ignore(1000, 10);
 
-            if (choice >= 1 && choice <= 4) break;
+            if (choice >= 1 && choice <= 6) break;
             else
                 cout << "ERROR - Please insert a value between 1-4: ";
         }
 
+        string searchKey;
+        if (choice == 2 || choice == 5)
+        {
+            // search for an element using .find() to avoid errors
+            cout << "Which villager do you want to " << ((choice == 2) ? "delete" : "find") << "?" << endl << "Name --> ";
+            getline(cin, searchKey);
+
+            auto it2 = villagerList.find(searchKey);
+            if (it2 != villagerList.end())
+            {  // the iterator points to beyond the end of the map
+                if (choice == 5)
+                {
+                    cout << "\nFound " << searchKey << "'s favorite colors: ";
+                    cout << "[" << get<0>(it2->second) << ", " << get<1>(it2->second) << ", " << get<2>(it2->second) << "]" << endl;
+                }
+                else
+                {
+                    cout << "Deleting " << searchKey << "..." << endl;
+                    villagerList.erase(searchKey);
+                }
+            }
+            else
+                cout << endl << searchKey << " not found." << endl;
+        }
+
         switch (choice)
         {
-            case 1: //Increase Friendship
+            case 3: //Increase Friendship
                 for (auto &pair : villagerList)
                     get<0>(pair.second) += 1;
                 break;
-            case 2: //Decrease Friendship
+            case 4: //Decrease Friendship
                 for (auto &pair : villagerList)
                 {
                     if (get<0>(pair.second) > 0)
                         get<0>(pair.second) -= 1;
                 }
                 break;
-            case 3: //Find Villager
-                // search for an element using .find() to avoid errors
-                string searchKey = "Drago";
-                auto it = villagerList.find(searchKey);
-                if (it != villagerList.end()) {  // the iterator points to beyond the end of the map
-                                                // if searchKey is not found
-                    cout << "\nFound " << searchKey << "'s favorite colors: ";
-                    cout << "[" << get<0>(it->second) << ", " << get<1>(it->second) << ", " << get<2>(it->second) << "]" << endl;
-                } else
-                    cout << endl << searchKey << " not found." << endl;
-                break;
         }
 
-        if (choice == 4)
+        if (choice == 6)
         {
             cout << "Quitting... Thanks for testing my program!" << endl;
             break;
@@ -84,10 +98,6 @@ int main() {
             cout << endl;
         }
     }
-
-    // delete an element
-    villagerList.erase("Raymond");
-
     //Report size, clear, report size again to confirm map operations
     cout << "\nSize before clear: " << villagerList.size() << endl;
     villagerList.clear();
